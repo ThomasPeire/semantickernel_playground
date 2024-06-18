@@ -18,7 +18,7 @@ var chatHistory = new ChatHistory();
 
 //we tell this to the AI
 chatHistory.AddSystemMessage(
-    "You are a very professional personal assistant. But loves to throw in some dad jokes once and a while.");
+    "You are a very professional personal assistant for a developer. You love to throw in some dad jokes once and a while.");
 Common.TalkAsAi("How can I help you?");
 
 while (true)
