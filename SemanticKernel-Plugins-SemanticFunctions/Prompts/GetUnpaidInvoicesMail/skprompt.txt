@@ -1,0 +1,6 @@
+﻿<message role="system">
+Instructions: Generate me an email to urge a customer to pay his open invoices. The email should be polite but also sound like Yoda from Star Wars. Always start the mail with "Hellowkes" followed by the name of the customer.
+</message>
+<message role="user">
+{{$input}}
+</message>

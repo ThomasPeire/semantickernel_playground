@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel-Chat", "SemanticKernel-Chat\SemanticKernel-Chat.csproj", "{954A59F3-6566-482A-AB9C-8A2EC9151AD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel-Plugins-NativeFunctions", "SemanticKernel-Plugins-NativeFunctions\SemanticKernel-Plugins-NativeFunctions.csproj", "{44CE1739-417A-4C5A-80F3-3A420D571366}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel-Plugins-SemanticFunctions", "SemanticKernel-Plugins-SemanticFunctions\SemanticKernel-Plugins-SemanticFunctions.csproj", "{935F10A2-FB04-49EE-8E1B-1AC6CEC5648A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel-Plugins-Combined", "SemanticKernel-Plugins-Combined\SemanticKernel-Plugins-Combined.csproj", "{FF9E2A50-DAC0-4706-AF10-BE0058BE5F69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonStuff", "CommonStuff\CommonStuff.csproj", "{8C5AA5C8-B13E-422C-9993-500324AD2217}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{954A59F3-6566-482A-AB9C-8A2EC9151AD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{954A59F3-6566-482A-AB9C-8A2EC9151AD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{954A59F3-6566-482A-AB9C-8A2EC9151AD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{954A59F3-6566-482A-AB9C-8A2EC9151AD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44CE1739-417A-4C5A-80F3-3A420D571366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44CE1739-417A-4C5A-80F3-3A420D571366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44CE1739-417A-4C5A-80F3-3A420D571366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44CE1739-417A-4C5A-80F3-3A420D571366}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935F10A2-FB04-49EE-8E1B-1AC6CEC5648A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935F10A2-FB04-49EE-8E1B-1AC6CEC5648A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935F10A2-FB04-49EE-8E1B-1AC6CEC5648A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935F10A2-FB04-49EE-8E1B-1AC6CEC5648A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF9E2A50-DAC0-4706-AF10-BE0058BE5F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF9E2A50-DAC0-4706-AF10-BE0058BE5F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF9E2A50-DAC0-4706-AF10-BE0058BE5F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF9E2A50-DAC0-4706-AF10-BE0058BE5F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C5AA5C8-B13E-422C-9993-500324AD2217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C5AA5C8-B13E-422C-9993-500324AD2217}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C5AA5C8-B13E-422C-9993-500324AD2217}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C5AA5C8-B13E-422C-9993-500324AD2217}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

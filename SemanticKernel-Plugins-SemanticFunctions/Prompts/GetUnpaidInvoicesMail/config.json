@@ -1,0 +1,18 @@
+﻿{
+  "schema": 1,
+  "type": "completion",
+  "description": "Generate an email to ask a customer to pay his or her unpaid invoices",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 1200,
+      "temperature": 0.3
+    }
+  },
+  "input_variables": [
+    {
+      "name": "input",
+      "description": "The context of the email",
+      "type": "string"
+    }
+  ]
+}

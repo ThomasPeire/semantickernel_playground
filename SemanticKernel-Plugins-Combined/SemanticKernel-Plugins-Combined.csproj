@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+        <RootNamespace>SemanticKernel_Plugins_Combined</RootNamespace>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <UserSecretsId>8894de20-6c18-413a-9a6f-b660f244bd1c</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+      <PackageReference Include="Microsoft.SemanticKernel" Version="1.14.1" />
+      <PackageReference Include="Microsoft.SemanticKernel.Abstractions" Version="1.14.1" />
+      <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.14.1-alpha" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Prompts\GetUnpaidInvoicesMail\skprompt.txt" />
+      <None Include="Prompts\GetUnpaidInvoicesMailSpecific\skprompt.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Remove="Prompts\GetUnpaidInvoicesMail\config.json" />
+      <None Include="Prompts\GetUnpaidInvoicesMailSpecific\config.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CommonStuff\CommonStuff.csproj" />
+    </ItemGroup>
+
+</Project>

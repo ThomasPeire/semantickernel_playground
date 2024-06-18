@@ -1,0 +1,23 @@
+﻿{
+  "schema": 1,
+  "type": "completion",
+  "description": "Generate an email to ask a customer to pay his or her unpaid invoices",
+  "execution_settings": {
+    "default": {
+      "max_tokens": 1200,
+      "temperature": 0.3
+    }
+  },
+  "input_variables": [
+    {
+      "name": "customer_name",
+      "description": "The name of the customer",
+      "type": "string"
+    },
+    {
+      "name": "balance",
+      "description": "The amount of the unpaid invoice",
+      "type": "string"
+    }
+  ]
+}
