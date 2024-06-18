@@ -1,6 +1,0 @@
-﻿<message role="system">
-Instructions: Generate me an email to urge a customer to pay his open invoices. Make sure to include the customer name and the balance. The email should be polite but also sound like Yoda from Star Wars. Always start the mail with "Howdy" followed by the name of the customer.
-</message>
-<message role="user">
-The customer name is {{$customer_name}} and the amount to be paid is {{$balance}}. Generate me the email.
-</message>

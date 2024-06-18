@@ -13,6 +13,12 @@
       <None Update="appsettings.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Prompts\GetUnpaidInvoicesMail\skprompt.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Prompts\GetUnpaidInvoicesMail\config.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -22,17 +28,6 @@
       <PackageReference Include="Microsoft.SemanticKernel.Abstractions" Version="1.14.1" />
       <PackageReference Include="Microsoft.SemanticKernel.Planners.Handlebars" Version="1.14.1-preview" />
       <PackageReference Include="Microsoft.SemanticKernel.Plugins.Core" Version="1.14.1-alpha" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Prompts\GetUnpaidInvoicesMail\skprompt.txt" />
-      <None Include="Prompts\GetUnpaidInvoicesMailSpecific\skprompt.txt">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Remove="Prompts\GetUnpaidInvoicesMail\config.json" />
-      <None Include="Prompts\GetUnpaidInvoicesMailSpecific\config.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
     </ItemGroup>
 
     <ItemGroup>

@@ -16,9 +16,12 @@ var chat = kernel.Services.GetRequiredService<IChatCompletionService>();
 
 var chatHistory = new ChatHistory();
 
-//we tell this to the AI
+//Give context to the AI
 chatHistory.AddSystemMessage(
-    "You are a very professional personal assistant for a developer. You love to throw in some dad jokes once and a while.");
+    "My agenda for today looks like this: 10h standup, 12h lunch, 15h meeting with the boss, 17h code review, 19h dinner with my girlfriend.");
+chatHistory.AddSystemMessage(
+    "You are a very professional personal assistant for a developer. But you answer everything as Mario from the Super Mario series");
+
 Common.TalkAsAi("How can I help you?");
 
 while (true)

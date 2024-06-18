@@ -3,8 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
+using Microsoft.SemanticKernel.Plugins.Core;
 using SemanticKernel.Plugins;
-#pragma warning disable SKEXP0050
+
 var config = Common.GetConfig(typeof(Program).Assembly);
 
 var apiKey = config["OpenAI:ApiKey"]!;
@@ -13,7 +14,8 @@ var modelId = config["OpenAI:ModelId"]!;
 var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(modelId, apiKey);
 builder.Plugins.AddFromType<InvoicePlugin>();
 
-// builder.Plugins.AddFromType<TimePlugin>();
+#pragma warning disable SKEXP0050
+builder.Plugins.AddFromType<TimePlugin>();
 
 var kernel = builder.Build();
 

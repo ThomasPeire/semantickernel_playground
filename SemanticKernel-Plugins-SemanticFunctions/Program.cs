@@ -1,6 +1,5 @@
 ﻿using CommonStuff;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Plugins.Core;
 #pragma warning disable SKEXP0050
 
 var config = Common.GetConfig(typeof(Program).Assembly);
@@ -11,11 +10,15 @@ var modelId = config["OpenAI:ModelId"]!;
 var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(modelId, apiKey);
 
 var kernel = builder.Build();
-var prompts = kernel.ImportPluginFromPromptDirectory("Prompts");
-builder.Plugins.AddFromType<ConversationSummaryPlugin>();
 
-const string input = "Generate me an email to ask customer Marina Decruyden to pay the invoice of 150 euros.";
+var pluginFunctions = kernel.ImportPluginFromPromptDirectory("Prompts");
 
-var result = await kernel.InvokeAsync(prompts["GetUnpaidInvoicesMail"], new() { { "input", input } });
+var arguments = new KernelArguments
+{
+    { "customer_name", "Marina Decruyden" },
+    { "balance", "150" }
+};
 
+var result = await kernel.InvokeAsync(pluginFunctions["GetUnpaidInvoicesMail"], arguments);
+Console.ForegroundColor = ConsoleColor.Green;
 Console.WriteLine(result);

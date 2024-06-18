@@ -11,7 +11,7 @@ public sealed class MailGenerationPlugin
         [Description("The name of the customer")] string customerName,
         [Description("The open balance in euros")] string openBalance)
     {
-        if (!kernel.Plugins.TryGetPlugin("Prompts", out var prompts) || !prompts.TryGetFunction("GetUnpaidInvoicesMailSpecific", out var function)) 
+        if (!kernel.Plugins.TryGetPlugin("Prompts", out var prompts) || !prompts.TryGetFunction("GetUnpaidInvoicesMail", out var function)) 
             return string.Empty;
         
         var result = await kernel.InvokeAsync(function,

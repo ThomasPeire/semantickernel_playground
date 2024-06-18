@@ -6,8 +6,6 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Planning.Handlebars;
 using Microsoft.SemanticKernel.Plugins.Core;
 using SemanticKernel_Plugins_Combined.Plugins;
-#pragma warning disable SKEXP0060
-#pragma warning disable SKEXP0050
 
 var config = Common.GetConfig(typeof(Program).Assembly);
 
@@ -18,6 +16,7 @@ var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(modelId, apiKey);
 
 builder.Plugins.AddFromType<InvoicePlugin>();
 builder.Plugins.AddFromType<MailGenerationPlugin>();
+#pragma warning disable SKEXP0050
 builder.Plugins.AddFromType<TimePlugin>();
 
 var kernel = builder.Build();
@@ -35,11 +34,13 @@ while (true)
     var prompt = Common.GetUserResponse();
 
     chatHistory.AddUserMessage(prompt);
-    //Enable auto function calling
+    
     OpenAIPromptExecutionSettings openAiPromptExecutionSettings = new()
     {
         ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
     };
+    
+    #pragma warning disable SKEXP0060
     var plannerOptions = new HandlebarsPlannerOptions()
     {
         ExecutionSettings = new OpenAIPromptExecutionSettings()
@@ -71,4 +72,4 @@ while (true)
 }
 
 
-//Get the open balance of the invoices of the last 10 days and send give me the email message that I can send to Marina Decruyden to pay her open invoices.
+//Get the open balance of the invoices for the last 10 days and give me the email message that I can send to Marina Decruyden to pay her open invoices.

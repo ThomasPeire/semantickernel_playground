@@ -5,13 +5,18 @@
   "execution_settings": {
     "default": {
       "max_tokens": 1200,
-      "temperature": 0.3
+      "temperature": 0.1
     }
   },
   "input_variables": [
     {
-      "name": "input",
-      "description": "The context of the email",
+      "name": "customer_name",
+      "description": "The mane of the customer to whom the email will be sent",
+      "type": "string"
+    },
+    {
+      "name": "balance",
+      "description": "The amount of money the customer owes in euro",
       "type": "string"
     }
   ]
