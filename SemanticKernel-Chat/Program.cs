@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
+using Console = CommonStuff.Console;
 
 var config = Common.GetConfig(typeof(Program).Assembly);
 
@@ -22,23 +23,21 @@ chatHistory.AddSystemMessage(
 chatHistory.AddSystemMessage(
     "You are a very professional personal assistant for a developer. But you answer everything as Mario from the Super Mario series");
 
-Common.TalkAsAi("How can I help you?");
+Console.WriteLineAsAi("How can I help you?");
 
 while (true)
 {
-    var prompt = Common.GetUserResponse();
+    var prompt = Console.GetUserPrompt();
 
     chatHistory.AddUserMessage(prompt);
 
     var fullResponse = string.Empty;
+    
     await foreach (var response in chat.GetStreamingChatMessageContentsAsync(chatHistory))
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(response);
+        Console.WriteAsAi(response.ToString());
         fullResponse += response;
     }
     
     chatHistory.AddAssistantMessage(fullResponse);
-
-    Console.WriteLine();
 }

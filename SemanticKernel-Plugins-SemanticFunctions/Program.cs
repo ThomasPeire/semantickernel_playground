@@ -1,15 +1,16 @@
 ﻿using CommonStuff;
 using Microsoft.SemanticKernel;
-#pragma warning disable SKEXP0050
+using Console = CommonStuff.Console;
+
+#region kernel build
 
 var config = Common.GetConfig(typeof(Program).Assembly);
+var kernel = Kernel
+    .CreateBuilder()
+    .AddOpenAIChatCompletion(config["OpenAI:ModelId"]!, config["OpenAI:ApiKey"]!)
+    .Build();
 
-var apiKey = config["OpenAI:ApiKey"]!;
-var modelId = config["OpenAI:ModelId"]!;
-
-var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(modelId, apiKey);
-
-var kernel = builder.Build();
+#endregion
 
 var pluginFunctions = kernel.ImportPluginFromPromptDirectory("Prompts");
 
@@ -20,5 +21,5 @@ var arguments = new KernelArguments
 };
 
 var result = await kernel.InvokeAsync(pluginFunctions["GetUnpaidInvoicesMail"], arguments);
-Console.ForegroundColor = ConsoleColor.Green;
-Console.WriteLine(result);
+
+Console.WriteLineAsAi(result.ToString());

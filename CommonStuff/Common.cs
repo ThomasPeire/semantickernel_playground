@@ -12,17 +12,32 @@ public static class Common
             .AddUserSecrets(assembly)
             .Build();
     }
-    
-    public static void TalkAsAi(string message)
+}
+
+public static class Console
+{
+    public static void WriteLineAsAi(string message)
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"AI: {message}");
+        System.Console.ForegroundColor = ConsoleColor.Green;
+        System.Console.WriteLine($"AI: {message}");
+    }
+    public static void WriteLineAsSystem(string message)
+    {
+        System.Console.ForegroundColor = ConsoleColor.DarkRed;
+        System.Console.WriteLine($"System: {message}");
     }
 
-    public static string GetUserResponse()
+    public static string GetUserPrompt()
     {
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.Write("User: ");
-        return Console.ReadLine() ?? string.Empty;
+        System.Console.WriteLine();
+        System.Console.ForegroundColor = ConsoleColor.Gray;
+        System.Console.Write("User: ");
+        return System.Console.ReadLine() ?? string.Empty;
+    }
+
+    public static void WriteAsAi(string message)
+    {
+        System.Console.ForegroundColor = ConsoleColor.Green;
+        System.Console.Write(message);
     }
 }

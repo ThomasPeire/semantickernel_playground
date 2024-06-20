@@ -6,40 +6,48 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Planning.Handlebars;
 using Microsoft.SemanticKernel.Plugins.Core;
 using SemanticKernel_Plugins_Combined.Plugins;
+using Console = CommonStuff.Console;
+
+#region kernel build
 
 var config = Common.GetConfig(typeof(Program).Assembly);
+var kernel = Kernel
+    .CreateBuilder()
+    .AddOpenAIChatCompletion(config["OpenAI:ModelId"]!, config["OpenAI:ApiKey"]!)
+    .Build();
 
-var apiKey = config["OpenAI:ApiKey"]!;
-var modelId = config["OpenAI:ModelId"]!;
+#endregion
 
-var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(modelId, apiKey);
+#region register plugins
 
-builder.Plugins.AddFromType<InvoicePlugin>();
-builder.Plugins.AddFromType<MailGenerationPlugin>();
+//native plugins
+kernel.Plugins.AddFromType<InvoicePlugin>();
+kernel.Plugins.AddFromType<MailGenerationPlugin>();
 #pragma warning disable SKEXP0050
-builder.Plugins.AddFromType<TimePlugin>();
+kernel.Plugins.AddFromType<TimePlugin>();
 
-var kernel = builder.Build();
-
+//semantic plugins
 kernel.ImportPluginFromPromptDirectory("Prompts");
+
+#endregion
 
 var chat = kernel.Services.GetRequiredService<IChatCompletionService>();
 
 var chatHistory = new ChatHistory();
 
-Common.TalkAsAi("How can I help you?");
+Console.WriteLineAsAi("How can I help you?");
 
 while (true)
 {
-    var prompt = Common.GetUserResponse();
+    var prompt = Console.GetUserPrompt();
 
     chatHistory.AddUserMessage(prompt);
-    
+
     OpenAIPromptExecutionSettings openAiPromptExecutionSettings = new()
     {
         ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
     };
-    
+
     #pragma warning disable SKEXP0060
     var plannerOptions = new HandlebarsPlannerOptions()
     {
@@ -49,14 +57,12 @@ while (true)
             TopP = 0.1,
         }
     };
-    
+
     var planner = new HandlebarsPlanner(plannerOptions);
-    
+
     var plan = await planner.CreatePlanAsync(kernel, prompt);
-    Console.ForegroundColor = ConsoleColor.DarkRed;
-    Console.WriteLine($"Plan: {plan}");
-    Console.ReadLine();
-    
+    Console.WriteLineAsSystem(plan.ToString());
+
     //var result = (await plan.InvokeAsync(kernel)).Trim();
 
     await foreach (var response in chat.GetStreamingChatMessageContentsAsync(
@@ -64,11 +70,8 @@ while (true)
                        executionSettings: openAiPromptExecutionSettings,
                        kernel: kernel))
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(response);
+        Console.WriteAsAi(response.ToString());
     }
-
-    Console.WriteLine();
 }
 
 

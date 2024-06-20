@@ -5,29 +5,34 @@ using Microsoft.SemanticKernel.ChatCompletion;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 using Microsoft.SemanticKernel.Plugins.Core;
 using SemanticKernel.Plugins;
+using Console = CommonStuff.Console;
+
+#region kernel build
 
 var config = Common.GetConfig(typeof(Program).Assembly);
+var kernel = Kernel
+    .CreateBuilder()
+    .AddOpenAIChatCompletion(config["OpenAI:ModelId"]!, config["OpenAI:ApiKey"]!)
+    .Build();
 
-var apiKey = config["OpenAI:ApiKey"]!;
-var modelId = config["OpenAI:ModelId"]!;
+#endregion
 
-var builder = Kernel.CreateBuilder().AddOpenAIChatCompletion(modelId, apiKey);
-builder.Plugins.AddFromType<InvoicePlugin>();
+#region register plugins
 
+kernel.Plugins.AddFromType<InvoicePlugin>();
 #pragma warning disable SKEXP0050
-builder.Plugins.AddFromType<TimePlugin>();
+kernel.Plugins.AddFromType<TimePlugin>();
 
-var kernel = builder.Build();
+#endregion
 
 var chat = kernel.Services.GetRequiredService<IChatCompletionService>();
-
 var chatHistory = new ChatHistory();
 
-Common.TalkAsAi("How can I help you?");
+Console.WriteLineAsAi("How can I help you?");
 
 while (true)
 {
-    var prompt = Common.GetUserResponse();
+    var prompt = Console.GetUserPrompt();
 
     chatHistory.AddUserMessage(prompt);
 
@@ -42,9 +47,6 @@ while (true)
                        executionSettings: openAiPromptExecutionSettings,
                        kernel: kernel))
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.Write(response);
+        Console.WriteAsAi(response.ToString());
     }
-
-    Console.WriteLine();
 }
