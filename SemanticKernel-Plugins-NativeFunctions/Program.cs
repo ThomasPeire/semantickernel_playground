@@ -20,6 +20,7 @@ var kernel = Kernel
 #region register plugins
 
 kernel.Plugins.AddFromType<InvoicePlugin>();
+
 #pragma warning disable SKEXP0050
 kernel.Plugins.AddFromType<TimePlugin>();
 
@@ -41,12 +42,16 @@ while (true)
     {
         ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
     };
-    
+
+    var fullResponse = string.Empty;
     await foreach (var response in chat.GetStreamingChatMessageContentsAsync(
                        chatHistory,
                        executionSettings: openAiPromptExecutionSettings,
                        kernel: kernel))
     {
         Console.WriteAsAi(response.ToString());
+        fullResponse += response;
     }
+    
+    chatHistory.AddAssistantMessage(fullResponse);
 }

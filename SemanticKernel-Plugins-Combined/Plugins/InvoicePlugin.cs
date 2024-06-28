@@ -5,12 +5,12 @@ namespace SemanticKernel_Plugins_Combined.Plugins;
 
 public sealed class InvoicePlugin
 {
-    [KernelFunction, Description("Returns the unpaid balance of invoices in euros since a given date.")]
+    [KernelFunction, Description("Returns the unpaid balance of invoices in euros since a given date")]
     [return:Description("The total amount of unpaid invoices.")]
-    public static decimal UnpaidAmountSince([Description("The startdate from when we want to take the invoices into account")] DateTime date)
+    public static decimal UnpaidAmountSince([Description("The startdate from when we want to take the invoices into account")] string date)
     {
         return DbContext.Invoices
-            .Where(invoice => invoice.InvoiceDate.Date >= date.Date)
+            .Where(invoice => invoice.InvoiceDate.Date >= DateTime.Parse(date).Date)
             .Sum(invoice => invoice.AmountDue);
     }
 }

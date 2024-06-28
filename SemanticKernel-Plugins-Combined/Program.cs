@@ -43,35 +43,31 @@ while (true)
 
     chatHistory.AddUserMessage(prompt);
 
-    OpenAIPromptExecutionSettings openAiPromptExecutionSettings = new()
-    {
-        ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
-    };
-
     #pragma warning disable SKEXP0060
-    var plannerOptions = new HandlebarsPlannerOptions()
+    var plannerOptions = new HandlebarsPlannerOptions
     {
-        ExecutionSettings = new OpenAIPromptExecutionSettings()
+        ExecutionSettings = new OpenAIPromptExecutionSettings
         {
             Temperature = 0.0,
             TopP = 0.1,
+            ToolCallBehavior = ToolCallBehavior.AutoInvokeKernelFunctions
         }
     };
+
+    if (string.IsNullOrWhiteSpace(prompt)) 
+    {
+        continue;
+    }
 
     var planner = new HandlebarsPlanner(plannerOptions);
 
     var plan = await planner.CreatePlanAsync(kernel, prompt);
     Console.WriteLineAsSystem(plan.ToString());
 
-    //var result = (await plan.InvokeAsync(kernel)).Trim();
-
-    await foreach (var response in chat.GetStreamingChatMessageContentsAsync(
-                       chatHistory,
-                       executionSettings: openAiPromptExecutionSettings,
-                       kernel: kernel))
-    {
-        Console.WriteAsAi(response.ToString());
-    }
+    var result = (await plan.InvokeAsync(kernel)).Trim();
+    Console.WriteAsAi(result);
+    
+    chatHistory.AddAssistantMessage(result);
 }
 
 
